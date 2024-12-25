@@ -166,7 +166,7 @@ function updatePagination() {
 
 
     // If totalPages is less than or equal to 5, show all pages
-    if (totalPages <= 5) {
+    if (totalPages <= 3) {
         for (let i = 1; i <= totalPages; i++) {
             paginationHTML += `
                 <button class="${i === currentPage ? 'page_btn disabled' : 'non_page_btn disabled'}" onclick="changePage(${i})">
@@ -182,9 +182,9 @@ function updatePagination() {
             </button>
         `
 
-        // If current page is more than 3, show ellipsis before the range
-        if (currentPage > 3) {
-            paginationHTML += `<span>...</span>`
+        // If current page is more than 2, show ellipsis before the range
+        if (currentPage > 2) {
+            paginationHTML += `<span>..</span>`
         }
 
         // Determine the range of pages to show around the current page
@@ -202,7 +202,7 @@ function updatePagination() {
 
         // If current page is near the end, show ellipsis after the range
         if (currentPage < totalPages - 2) {
-            paginationHTML += `<span>...</span>`
+            paginationHTML += `<span>..</span>`
         }
 
         // Always show the last page button
@@ -228,7 +228,7 @@ function previousPage() {
 
 //function for next button
 function nextPage() {
-    if (currentPage < data.length) {
+    if (currentPage < data.length/entry) {
         changePage(currentPage + 1) 
     }
 }
