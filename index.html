@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="border">
+        <div class="d-flex justify-content-between align-items-center mb-4 mt-4 ml-4 mr-4">
+            <p class="fs-2"  style="font-size: 20px;">DataTable with Buttons</p>
+            <div>
+                <button class="btn btn-primary">
+                    <i class="fas fa-file-export"></i> Export
+                </button>
+                <button class="btn ml-2" id="record">
+                    <i class="fas fa-plus"></i> Add New Record
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <div class="d-flex justify-content-between align-items-center p-3 border-bottom">
+        <div class="d-flex align-items-center">
+            <span class="mr-2">Show</span>
+            <select class="show">
+                <option value="1">1</option>
+                <option value="2">2</option>
+                <option value="3">3</option>
+                <option value="4">4</option>
+                <option value="5">5</option>
+            </select>
+            <span class="ml-2">entries</span>
+        </div>
+        <div class="d-flex align-items-center">
+            <span class="mr-2">Search :</span>
+            <input type="text" class="form-control" style="max-width: 200px;" id="search">
+        </div>
+    </div>
+
+    <div>
+        <table class="table">
+            <thead>
+                <tr>
+                    <th scope="col">
+                        <input type="checkbox" id="selectAll" onclick="toggleAllCheckboxes()">
+                    </th>
+                    <th scope="col">Name</th>
+                    <th scope="col">Email</th>
+                    <th scope="col">Date</th>
+                    <th scope="col">Salary</th>
+                    <th scope="col">Status</th>
+                    <th scope="col">Action</th>
+                </tr>
+            </thead>
+            <tbody id="data-body">
+                <!-- Table Data will be render here -->
+            </tbody>
+        </table>
+    </div>
+
+    <!-- Add Record html -->
+    <div class="modal" id="addRecordModal">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Add New Record</h5>
+                    <button type="button" class="close" onclick="closeModal('addRecordModal')">&times;</button>
+                </div>
+                <div class="modal-body">
+                    <form id="addRecordForm">
+                        <div>
+                            <label for="name">Name:</label>
+                            <input type="text" class="form-control" id="name" required>
+                        </div>
+                        <div>
+                            <label for="email">Email:</label>
+                            <input type="email" class="form-control" id="email" required>
+                        </div>
+                        <div>
+                            <label for="date">Date:</label>
+                            <input type="date" class="form-control" id="date" required>
+                        </div>
+                        <div>
+                            <label for="salary">Salary:</label>
+                            <input type="number" class="form-control" id="salary" required>
+                        </div>
+                        <div>
+                            <label for="status">Status:</label>
+                            <select class="form-control" id="status">
+                                <option value="Professional">Professional</option>
+                                <option value="Resigned">Resigned</option>
+                                <option value="Current">Current</option>
+                            </select>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" onclick="closeModal('addRecordModal')">Close</button>
+                    <button type="button" class="btn btn-primary" id="saveRecord">Save Record</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Edit Record html -->
+    <div class="modal" id="editRecordModal">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Edit Record</h5>
+                    <button type="button" class="close" onclick="closeModal('editRecordModal')">&times;</button>
+                </div>
+                <div class="modal-body">
+                    <form id="editRecordForm">
+                        <div >
+                            <label for="edit-name">Name:</label>
+                            <input type="text" class="form-control" id="edit-name" required>
+                        </div>
+                        <div>
+                            <label for="edit-email">Email:</label>
+                            <input type="email" class="form-control" id="edit-email" required>
+                        </div>
+                        <div>
+                            <label for="edit-date">Date:</label>
+                            <input type="date" class="form-control" id="edit-date" required>
+                        </div>
+                        <div>
+                            <label for="edit-salary">Salary:</label>
+                            <input type="number" class="form-control" id="edit-salary" required>
+                        </div>
+                        <div>
+                            <label for="edit-status">Status:</label>
+                            <select class="form-control" id="edit-status">
+                                <option value="Professional">Professional</option>
+                                <option value="Resigned">Resigned</option>
+                                <option value="Current">Current</option>
+                            </select>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" onclick="closeModal('editRecordModal')">Close</button>
+                    <button type="button" class="btn btn-danger" id="deleteRecord">Delete Record</button>
+                    <button type="button" class="btn btn-primary" id="updateRecord">Update Record</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!--footer for entire and pagination-->
+    <footer class="d-flex justify-content-between p-3">
+        <div id="total-entries"> entries </div>
+        <div id="pagination">Pagination</div>
+    </footer>
+
+    <script src="index.js"></script>
+</body>
+</html>
